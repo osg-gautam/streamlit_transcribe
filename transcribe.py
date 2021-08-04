@@ -2,6 +2,7 @@ import os
 import requests
 import pandas as pd
 import numpy as np
+import streamlit as st
 
 def check(file):
     temp = pd.read_csv('tx_speaker_db.csv')
@@ -57,7 +58,7 @@ def upload_file(fileObj):
       transcribe_id: The ID of the file which is being transcribed
   '''
   
-  token = "a788369fef274a0393624e2fc7a9a70a"
+  token = st.secrets["token"]
   file_url = get_url(token,fileObj)
   transcribe_id = get_transcribe_id(token,file_url)
   return token,transcribe_id
