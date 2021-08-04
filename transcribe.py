@@ -1,5 +1,15 @@
 import os
 import requests
+import pandas as pd
+import numpy as np
+
+def check(file):
+    temp = pd.read_csv('tx_speaker_db.csv')
+    if (file in temp.fname.unique()):
+        print('file exists')
+    else:
+        print('transcribe')
+
 
 def get_url(token,data):
   '''
@@ -40,26 +50,26 @@ def get_transcribe_id(token,url):
 
 def upload_file(fileObj):
   '''
-    Parameter:
+    Parameter: 
       fileObj: The File Object to transcribe
     Return Value:
       token  : The API key
       transcribe_id: The ID of the file which is being transcribed
   '''
-
-  token = "398a8ab00a764f0092e93ff6a480a68f"
+  
+  token = "a788369fef274a0393624e2fc7a9a70a"
   file_url = get_url(token,fileObj)
   transcribe_id = get_transcribe_id(token,file_url)
   return token,transcribe_id
 
 def get_text(token,transcribe_id):
   '''
-    Parameter:
+    Parameter: 
       token: The API key
-      transcribe_id: The ID of the file which is being
+      transcribe_id: The ID of the file which is being 
     Return Value:
       result : The response object
-  '''
+  '''  
   endpoint = f"https://api.assemblyai.com/v2/transcript/{transcribe_id}"
   headers = {
     "authorization": token
